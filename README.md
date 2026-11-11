@@ -47,10 +47,6 @@ Vite יחליף את `README.md` ואת `.gitignore` בגרסאות שלו. זה
 
 ```
 .claude/settings.json        hook ל-Claude Code
-.codex/hooks.json            hook ל-Codex
-.gemini/settings.json        hook ל-Gemini CLI
-.agents/hooks.json           hook ל-Antigravity
-.github/hooks/log-prompt.json  hook ל-GitHub Copilot (ב-VS Code וב-Copilot CLI)
 scripts/log-prompt.mjs       הסקריפט שכותב ל-PROMPTS.md
 AGENTS.md, CLAUDE.md         כללי עבודה לסוכן: משימה אחת בכל פעם, בלי commit בשבילכם
 PROMPTS.md                   היומן — נכתב אוטומטית
@@ -78,11 +74,7 @@ PROMPTS.md                   היומן — נכתב אוטומטית
 | סוכן | הערה |
 |---|---|
 | **Claude Code** | בהפעלה הראשונה צריך לאשר את ה-hook פעם אחת. |
-| **Codex CLI** | אוטומטי. |
-| **Gemini CLI** | בהפעלה הראשונה תופיע אזהרה על hook חדש בפרויקט. זה ה-hook הזה. |
-| **Antigravity** | ה-hook לא מקבל את הפרומפט עצמו, אז הרשומה מופיעה רק כשהסוכן מסיים לענות. |
-| **GitHub Copilot** | ב-VS Code: צריך לאשר שאתם סומכים על התיקייה (Trust). |
-| **כלים אחרים** (Cursor ועוד) | אין hook. ב-`AGENTS.md` יש הוראה לסוכן לרשום כל הודעה בעצמו — ודאו שהוא עושה את זה. |
+| **כלים אחרים** (Cursor, Codex ועוד) | אין hook. ב-`AGENTS.md` יש הוראה לסוכן לרשום כל הודעה בעצמו — ודאו שהוא עושה את זה. |
 
 ## כשזה לא עובד
 
