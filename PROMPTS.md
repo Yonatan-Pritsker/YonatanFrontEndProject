@@ -96,3 +96,21 @@
 **17:10 · claude**
 
 > first one, same rule for every tag
+
+**17:27 · claude**
+
+> dont do anything, just adding this to be saved in prompts:
+> read the PRD and architecture, decided stats hide tag counts when a tag is on, and search stays local
+
+**17:30 · claude**
+
+> <ide_opened_file>The user opened the file c:\Users\User\LocalClaudeProjects\LocalOnoCourses\OnoFrontEnd\final-project\PRD.md in the IDE. This may or may not be related to the current task.</ide_opened_file>
+> Now write tasks.md. max 12 tasks in build order, following section 7 of the brief, so task 1 is the list from a local json file with no api. each task gets a "Done when:" line i can check by looking at the screen or running a command. install packages only in the task that needs them (react router in the routing task, vitest in the tests task)
+> 
+> Once the result comes back, check that Vitest isn't in the last task and that every "Done when" line is actually checkable.
+
+**17:38 · claude**
+
+> remove the search 404 note from architecture.md, but the details page can still get a 404 for an id that doesnt exist. add to task 3s done when that /characters/999 still shows "not found" after switching to the api, not an error
+> 
+> After it updates the files, commit with step 0.3 - tasks and push. Next comes task 1.
