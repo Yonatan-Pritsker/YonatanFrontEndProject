@@ -114,3 +114,49 @@
 > remove the search 404 note from architecture.md, but the details page can still get a 404 for an id that doesnt exist. add to task 3s done when that /characters/999 still shows "not found" after switching to the api, not an error
 > 
 > After it updates the files, commit with step 0.3 - tasks and push. Next comes task 1.
+
+**17:50 · claude**
+
+> where to check in the inspect
+
+**17:52 · claude**
+
+> console show nothing
+
+**17:59 · claude**
+
+> by the way i told chat this:
+> "looks good, but characters should be row not colom"
+> here is their reply:
+> "
+> 
+> <pasted_content id="b0c2">
+> Task 1's "Done when" is met: the cards show a name and an image. The layout belongs to **task 11 (styling)**, where `tasks.md` already says "a grid of cards, several per row on a wide screen." Right now there's no CSS at all, which is why they stack.
+> 
+> **For you:**
+> 1. Check in F12 → Console that there are no red errors.
+> 2. Add your line to `PROMPTS.md`, for example: *"checked 6 cards show, cards are in a column, layout comes in task 11"*.
+> 3. Commit:
+>    ```
+>    git add -A
+>    git commit -m "task 1 - list from local JSON"
+>    git push
+>    ```
+> 
+> If the column bothers you during the work, a few lines of CSS now are legitimate as a separate commit (`task 1.1 - cards in a row`). In that case, this is the text for the agent:
+> 
+> ---
+> the cards show in a column, i want them in a row that wraps to the next line. just minimal css for now, the real styling is task 11
+> ---
+> </pasted_content id="b0c2">
+> 
+> "
+
+**17:59 · claude**
+
+> ok so now im doing a push commit
+
+**18:07 · claude**
+
+> ok, just realized i mixed up claude chats, so ill recap: 
+> i checked the page, looks good, 6 characters with pictures, no errors in the console. they're in a column for now. im going to commit and push from the terminal now, dont do anything yet.
