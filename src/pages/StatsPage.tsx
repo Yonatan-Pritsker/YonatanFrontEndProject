@@ -38,38 +38,40 @@ function StatsPage({ characters, selectedTag, isLoading, error }: StatsPageProps
         Stats for {counted.length} loaded characters{tagPart}
       </h1>
 
-      {selectedTag === null && (
+      <div className="stats-sections">
+        {selectedTag === null && (
+          <section>
+            <h2>By tag</h2>
+            <ul>
+              {ALL_TAGS.map((tag) => (
+                <li key={tag}>
+                  {TAG_LABELS[tag]}: {tagCounts[tag]}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
         <section>
-          <h2>By tag</h2>
+          <h2>By status</h2>
           <ul>
-            {ALL_TAGS.map((tag) => (
-              <li key={tag}>
-                {TAG_LABELS[tag]}: {tagCounts[tag]}
-              </li>
-            ))}
+            <li>Alive: {statusCounts.Alive}</li>
+            <li>Dead: {statusCounts.Dead}</li>
+            <li>Unknown: {statusCounts.unknown}</li>
           </ul>
         </section>
-      )}
 
-      <section>
-        <h2>By status</h2>
-        <ul>
-          <li>Alive: {statusCounts.Alive}</li>
-          <li>Dead: {statusCounts.Dead}</li>
-          <li>Unknown: {statusCounts.unknown}</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Most episodes</h2>
-        <ol>
-          {topCharacters.map((character) => (
-            <li key={character.id}>
-              <Link to={`/characters/${character.id}`}>{character.name}</Link>: {character.episode.length}
-            </li>
-          ))}
-        </ol>
-      </section>
+        <section>
+          <h2>Most episodes</h2>
+          <ol>
+            {topCharacters.map((character) => (
+              <li key={character.id}>
+                <Link to={`/characters/${character.id}`}>{character.name}</Link>: {character.episode.length}
+              </li>
+            ))}
+          </ol>
+        </section>
+      </div>
     </>
   )
 }

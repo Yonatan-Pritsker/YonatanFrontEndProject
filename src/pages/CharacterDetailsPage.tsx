@@ -61,7 +61,7 @@ function CharacterDetailsPage({ favoriteIds, onToggleFavorite }: CharacterDetail
   }
 
   return (
-    <section>
+    <section className="character-details">
       <h1>{character.name}</h1>
       <TagBadges tags={getTags(character.name)} />
       {isClone(character) && <CloneBadge />}
@@ -69,16 +69,18 @@ function CharacterDetailsPage({ favoriteIds, onToggleFavorite }: CharacterDetail
         isFavorite={favoriteIds.includes(character.id)}
         onToggle={() => onToggleFavorite(character.id)}
       />
-      <img src={character.image} alt={character.name} width={300} height={300} />
-      <ul>
-        <li>Status: {character.status}</li>
-        <li>Species: {character.species}</li>
-        <li>Gender: {character.gender}</li>
-        <li>Origin: {character.origin.name}</li>
-        <li>Last known location: {character.location.name}</li>
-        <li>Episodes: {character.episode.length}</li>
-        <li>Last seen in episode: {getLastEpisode(character)}</li>
-      </ul>
+      <div className="details-body">
+        <img src={character.image} alt={character.name} width={300} height={300} />
+        <ul>
+          <li>Status: {character.status}</li>
+          <li>Species: {character.species}</li>
+          <li>Gender: {character.gender}</li>
+          <li>Origin: {character.origin.name}</li>
+          <li>Last known location: {character.location.name}</li>
+          <li>Episodes: {character.episode.length}</li>
+          <li>Last seen in episode: {getLastEpisode(character)}</li>
+        </ul>
+      </div>
     </section>
   )
 }

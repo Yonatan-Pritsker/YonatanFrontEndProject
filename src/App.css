@@ -1,22 +1,127 @@
-/* Just enough to see which page is open. Real styling is task 11. */
-.nav-bar a.active {
-  font-weight: bold;
-  text-decoration: underline;
+/* ---------- Layout ---------- */
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
-/* Cards side by side, wrapping to the next line */
-.character-list {
+/* ---------- Nav bar ---------- */
+
+.nav-bar {
+  display: flex;
+  flex-wrap: wrap; /* on a narrow screen the links go to a second line instead of sticking out */
+  gap: 1.25rem;
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-bar a {
+  text-decoration: none;
+  color: var(--text);
+}
+
+/* NavLink adds "active" to the page that's open */
+.nav-bar a.active {
+  color: var(--accent);
+  font-weight: bold;
+  border-bottom: 2px solid var(--accent);
+}
+
+/* ---------- Controls above the list ---------- */
+
+.tag-filter,
+.sort-control {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.tag-filter button,
+.sort-control button,
+.load-more,
+.favorite-button {
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+/* The picked button (aria-pressed is set in TagFilter / SortControl) */
+.tag-filter button[aria-pressed='true'],
+.sort-control button[aria-pressed='true'] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--surface);
+  font-weight: bold;
+}
+
+.search-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.search-box input {
+  width: 100%;
+  max-width: 20rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font: inherit;
+}
+
+/* ---------- Character cards ---------- */
+
+/* As many 180px+ columns as fit. At 375px wide there's room for only one. */
+.character-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 1rem;
+  margin: 1rem 0;
 }
 
-/* Same width as the image, so long names wrap instead of widening the card */
 .character-card {
-  width: 150px;
+  padding: 0.6rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
 }
 
-/* Tags in one line with a border, so they read as badges and not as plain text */
+.character-card a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.character-card img {
+  display: block;
+  width: 100%;
+  border-radius: 6px;
+}
+
+.character-card h2 {
+  font-size: 1rem;
+  margin: 0.5rem 0 0.25rem;
+}
+
+.character-card a:hover h2 {
+  color: var(--accent);
+}
+
+.last-seen {
+  margin: 0.25rem 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* ---------- Tags and clone badge ---------- */
+
 .tag-badges {
   display: flex;
   flex-wrap: wrap;
@@ -26,17 +131,91 @@
   margin: 0.25rem 0;
 }
 
-/* The picked filter button */
-.tag-filter button[aria-pressed='true'],
-.sort-control button[aria-pressed='true'] {
-  font-weight: bold;
-  text-decoration: underline;
-}
-
 .tag,
 .clone-badge {
-  border: 1px solid;
+  display: inline-block;
+  padding: 0 0.45rem;
   border-radius: 4px;
-  padding: 0 0.3rem;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #1f2421;
+}
+
+/* One color per character, the same in light and dark mode */
+.tag-rick {
+  background: #a8d8f0;
+}
+.tag-morty {
+  background: #f5e07a;
+}
+.tag-summer {
+  background: #f4b6c2;
+}
+.tag-beth {
+  background: #d4bdf0;
+}
+.tag-jerry {
+  background: #bfe3a8;
+}
+.tag-other {
+  background: #dcdcdc;
+}
+
+.clone-badge {
+  background: #ffd3a8;
+  border: 1px dashed #c26a1a;
+}
+
+/* ---------- Details page ---------- */
+
+.character-details .favorite-button {
+  margin: 0.5rem 0;
+}
+
+/* Picture next to the facts, and below them on a narrow screen */
+.details-body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.details-body img {
+  border-radius: 10px;
+}
+
+.details-body ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+/* ---------- Stats page ---------- */
+
+.stats-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.stats-sections section {
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+/* ---------- Messages and buttons under the list ---------- */
+
+.status-message {
+  padding: 0.5rem 0;
+}
+
+.status-message.error {
+  color: var(--error);
+  font-weight: bold;
+}
+
+.load-more {
+  display: block;
+  margin: 0 auto 1rem;
 }
