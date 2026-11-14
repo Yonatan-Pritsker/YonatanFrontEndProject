@@ -256,3 +256,11 @@
 > Try again after a failed batch → continue from the failed batch.
 > Leaving the stats page mid-load → stop, and start over on the next visit.
 > What the page shows while loading → only the progress.
+
+**22:37 · claude**
+
+> can loading be faster?
+
+**22:56 · claude**
+
+> i changed my mind, well keep it at sessionStorage so the app doesn't leave about 1MB on the user's disk forever, and the data can never go stale.
