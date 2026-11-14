@@ -13,7 +13,8 @@ import { loadFavorites, saveFavorites, toggleFavorite } from './utils/favorites'
 import './App.css'
 
 function App() {
-  // The loaded characters live here because the list and the stats page both use them
+  // The characters the list has loaded. They live here and not in the list page, so they're
+  // still there after visiting a character.
   const [characters, setCharacters] = useState<Character[]>([])
   const [selectedTag, setSelectedTag] = useState<Tag | null>(null)
   const [page, setPage] = useState(1)
@@ -106,12 +107,8 @@ function App() {
             path="/characters/:id"
             element={<CharacterDetailsPage favoriteIds={favoriteIds} onToggleFavorite={handleToggleFavorite} />}
           />
-          <Route
-            path="/stats"
-            element={
-              <StatsPage characters={characters} selectedTag={selectedTag} isLoading={isLoading} error={error} />
-            }
-          />
+          {/* The stats page loads all the characters itself, it doesn't use the list's state */}
+          <Route path="/stats" element={<StatsPage />} />
           <Route path="/favorites" element={<FavoritesPage favoriteIds={favoriteIds} />} />
         </Routes>
       </main>

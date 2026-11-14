@@ -1,56 +1,99 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { EMPTY_PROGRESS, fetchAllCharacters, type LoadProgress } from '../api/allCharacters'
 import StatusMessage from '../components/StatusMessage'
 import type { Character } from '../types/character'
-import type { Tag } from '../types/tag'
-import { filterByTag } from '../utils/filters'
+import { loadCachedCharacters, saveCachedCharacters } from '../utils/allCharactersCache'
 import { countByStatus, countByTag, mostEpisodes } from '../utils/stats'
 import { ALL_TAGS, TAG_LABELS } from '../utils/tags'
 
-type StatsPageProps = {
-  characters: Character[]
-  selectedTag: Tag | null
-  isLoading: boolean
-  error: string | null
-}
-
 const TOP_COUNT = 5
 
-// Counts what the list has loaded. With a tag picked: only characters with that tag
-// (the same filter the list uses), and no tag counts, since they'd all be the same tag.
-function StatsPage({ characters, selectedTag, isLoading, error }: StatsPageProps) {
-  const counted = filterByTag(characters, selectedTag)
+// Counts all 826 characters, not what the list loaded, and ignores the list's tag.
+// Only this page uses this data, so it all lives here and not in App.
+function StatsPage() {
+  // Already loaded in this tab? Then there's nothing to load.
+  const [allCharacters, setAllCharacters] = useState<Character[] | null>(() => loadCachedCharacters())
+  // Where loading starts from. null = nothing to load. Changing it is what (re)starts the effect.
+  const [startFrom, setStartFrom] = useState<LoadProgress | null>(() =>
+    allCharacters === null ? EMPTY_PROGRESS : null,
+  )
+  const [progress, setProgress] = useState<LoadProgress>(EMPTY_PROGRESS)
+  const [error, setError] = useState<string | null>(null)
 
-  if (counted.length === 0 && isLoading) {
-    return <StatusMessage kind="loading" text="Loading characters..." />
-  }
-  if (counted.length === 0 && error) {
-    return <StatusMessage kind="error" text={error} />
+  useEffect(() => {
+    if (startFrom === null) return
+
+    // Set by the cleanup when the user leaves the page: the loop stops before the next batch.
+    // Nothing is saved then, so the next visit starts over.
+    let stopped = false
+
+    fetchAllCharacters(startFrom, { onProgress: setProgress, shouldStop: () => stopped })
+      .then((characters) => {
+        if (stopped || characters === null) return
+        setAllCharacters(characters)
+        // Saved only here, after everything loaded
+        saveCachedCharacters(characters)
+      })
+      .catch(() => {
+        if (!stopped) setError('Could not load all the characters (the API may be getting too many requests).')
+      })
+
+    return () => {
+      stopped = true
+    }
+  }, [startFrom])
+
+  // Continues from the last batch that worked. A new object every time: if progress is still
+  // EMPTY_PROGRESS (page 1 failed), passing the same object wouldn't change state or rerun the effect.
+  function handleTryAgain() {
+    setError(null)
+    setStartFrom({ ...progress })
   }
 
-  const tagCounts = countByTag(counted)
-  const statusCounts = countByStatus(counted)
-  const topCharacters = mostEpisodes(counted, TOP_COUNT)
-  const tagPart = selectedTag === null ? '' : ` · tag: ${TAG_LABELS[selectedTag]}`
+  if (allCharacters === null) {
+    const loadedText =
+      progress.totalCount === null
+        ? 'Loading characters...'
+        : `Loaded ${progress.characters.length} / ${progress.totalCount}`
+
+    return (
+      <>
+        <h1>Stats</h1>
+        {error ? (
+          <>
+            <StatusMessage kind="error" text={error} />
+            <p>{loadedText} so far.</p>
+            <button type="button" className="load-more" onClick={handleTryAgain}>
+              Try again
+            </button>
+          </>
+        ) : (
+          <StatusMessage kind="loading" text={loadedText} />
+        )}
+      </>
+    )
+  }
+
+  const tagCounts = countByTag(allCharacters)
+  const statusCounts = countByStatus(allCharacters)
+  const topCharacters = mostEpisodes(allCharacters, TOP_COUNT)
 
   return (
     <>
-      <h1>
-        Stats for {counted.length} loaded characters{tagPart}
-      </h1>
+      <h1>Stats for all {allCharacters.length} characters</h1>
 
       <div className="stats-sections">
-        {selectedTag === null && (
-          <section>
-            <h2>By tag</h2>
-            <ul>
-              {ALL_TAGS.map((tag) => (
-                <li key={tag}>
-                  {TAG_LABELS[tag]}: {tagCounts[tag]}
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
+        <section>
+          <h2>By tag</h2>
+          <ul>
+            {ALL_TAGS.map((tag) => (
+              <li key={tag}>
+                {TAG_LABELS[tag]}: {tagCounts[tag]}
+              </li>
+            ))}
+          </ul>
+        </section>
 
         <section>
           <h2>By status</h2>

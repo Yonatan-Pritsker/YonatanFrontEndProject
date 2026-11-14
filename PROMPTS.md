@@ -240,3 +240,19 @@
 **20:00 · claude**
 
 > commited, task 12
+
+**20:05 · claude**
+
+> the defence will be after 20/11
+
+**20:29 · claude**
+
+> i want the stats page to count all 826 characters, not just whats loaded in the list. load all 42 pages in batches of 5 with about a 1 second pause between batches so we dont hit the rate limit, and show progress like "Loaded 300 / 826". save the full result in sessionStorage so going back to stats doesnt load again, but only save if everything loaded. if a batch fails show an error with a try again button. the stats ignore the tag selected in the list. only the stats page uses this data, the list stays as it is. update the PRD, architecture.md and add a task 13 to tasks.md, plus tests for any new logic
+
+**20:41 · claude**
+
+> What was asked and what i chose:
+> 
+> Try again after a failed batch → continue from the failed batch.
+> Leaving the stats page mid-load → stop, and start over on the next visit.
+> What the page shows while loading → only the progress.
