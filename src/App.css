@@ -1,0 +1,5 @@
+/* Just enough to see which page is open. Real styling is task 11. */
+.nav-bar a.active {
+  font-weight: bold;
+  text-decoration: underline;
+}

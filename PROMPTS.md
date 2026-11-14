@@ -160,3 +160,13 @@
 
 > ok, just realized i mixed up claude chats, so ill recap: 
 > i checked the page, looks good, 6 characters with pictures, no errors in the console. they're in a column for now. im going to commit and push from the terminal now, dont do anything yet.
+
+**18:10 · claude**
+
+> pushed. lets do task 2. also about the abc thing you mentioned, yes add it to task 3: if the id isnt a number show not found without calling the api
+
+## 2026-11-14
+
+**18:05 · claude**
+
+> checked task 2: cards open their page, /characters/2 is morty, 999 and abc say not found, menu works and marks the current page, console clean. ids above 6 say not found too, i guess thats because the json only has 6 and task 3 fixes it?

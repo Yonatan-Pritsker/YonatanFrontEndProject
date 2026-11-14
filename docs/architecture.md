@@ -22,7 +22,7 @@ src/
 
 שני דברים לשים לב אליהם ב-API:
 - `/character/5` מחזיר אובייקט, אבל `/character/1,2,3` מחזיר מערך. עם id אחד צריך לעטוף במערך.
-- id שלא קיים (`/character/999`) מחזיר 404 עם `{"error": "Character not found"}`. בעמוד הפרטים זה צריך להיות "לא נמצא" ולא הודעת שגיאה.
+- id שלא קיים (`/character/999`) מחזיר 404 עם `{"error": "Character not found"}`. בעמוד הפרטים זה צריך להיות "לא נמצא" ולא הודעת שגיאה. id שהוא לא מספר (`/character/abc`) מחזיר 500, אז עמוד הפרטים בודק את זה לפני ה-fetch ומציג "לא נמצא" בלי לפנות ל-API.
 
 ### types/
 - `Character` - רק השדות שמשתמשים בהם: `id`, `name`, `status`, `species`, `type`, `gender`, `origin`, `location`, `image`, `episode`.

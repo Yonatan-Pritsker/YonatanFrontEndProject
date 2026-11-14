@@ -18,9 +18,9 @@ Done when: לחיצה על כרטיס פותחת `/characters/<id>` עם הדמ�
 
 ## 3. מידע אמיתי מה-API
 
-`src/api/` עם `fetchCharacters` ו-`fetchCharacter`. ה-fetch בתוך `useEffect`, הדמויות ב-state של `App`, ועמוד הפרטים מביא את הדמות שלו לפי ה-id. `StatusMessage` לטעינה ולשגיאה. מוחקים את קובץ ה-JSON.
+`src/api/` עם `fetchCharacters` ו-`fetchCharacter`. ה-fetch בתוך `useEffect`, הדמויות ב-state של `App`, ועמוד הפרטים מביא את הדמות שלו לפי ה-id (אם ה-id הוא לא מספר - "לא נמצא" בלי לפנות ל-API). `StatusMessage` לטעינה ולשגיאה. מוחקים את קובץ ה-JSON.
 
-Done when: הרשימה מציגה 20 דמויות מה-API; ב-DevTools ‏(Network) עם "3G" רואים הודעת טעינה לפני הרשימה; עם "Offline" ורענון רואים הודעת שגיאה ולא מסך ריק; `/characters/500` נפתח ישר מהכתובת; `/characters/999` עדיין מציג "לא נמצא" ולא הודעת שגיאה; `src/data/` לא קיים יותר.
+Done when: הרשימה מציגה 20 דמויות מה-API; ב-DevTools ‏(Network) עם "3G" רואים הודעת טעינה לפני הרשימה; עם "Offline" ורענון רואים הודעת שגיאה ולא מסך ריק; `/characters/500` נפתח ישר מהכתובת; `/characters/999` עדיין מציג "לא נמצא" ולא הודעת שגיאה; `/characters/abc` מציג "לא נמצא" ובלשונית Network אין בקשה ל-API; `src/data/` לא קיים יותר.
 
 ## 4. תגיות ותג שיבוט
 
