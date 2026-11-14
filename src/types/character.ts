@@ -20,3 +20,14 @@ export type Character = {
   image: string
   episode: string[]
 }
+
+// What GET /character returns: one page of up to 20 characters
+export type CharactersPage = {
+  info: {
+    count: number
+    pages: number
+    next: string | null
+    prev: string | null
+  }
+  results: Character[]
+}
