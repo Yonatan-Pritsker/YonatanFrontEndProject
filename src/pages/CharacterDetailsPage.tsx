@@ -2,13 +2,19 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { fetchCharacter } from '../api/characters'
 import CloneBadge from '../components/CloneBadge'
+import FavoriteButton from '../components/FavoriteButton'
 import StatusMessage from '../components/StatusMessage'
 import TagBadges from '../components/TagBadges'
 import type { Character } from '../types/character'
 import { getLastEpisode } from '../utils/episodes'
 import { getTags, isClone } from '../utils/tags'
 
-function CharacterDetailsPage() {
+type CharacterDetailsPageProps = {
+  favoriteIds: number[]
+  onToggleFavorite: (id: number) => void
+}
+
+function CharacterDetailsPage({ favoriteIds, onToggleFavorite }: CharacterDetailsPageProps) {
   const { id } = useParams()
   // useParams gives a string. "abc" or "1.5" aren't real ids, and the API answers 500 for them,
   // so those don't get fetched at all
@@ -59,6 +65,10 @@ function CharacterDetailsPage() {
       <h1>{character.name}</h1>
       <TagBadges tags={getTags(character.name)} />
       {isClone(character) && <CloneBadge />}
+      <FavoriteButton
+        isFavorite={favoriteIds.includes(character.id)}
+        onToggle={() => onToggleFavorite(character.id)}
+      />
       <img src={character.image} alt={character.name} width={300} height={300} />
       <ul>
         <li>Status: {character.status}</li>

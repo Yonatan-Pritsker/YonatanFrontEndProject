@@ -9,10 +9,11 @@ import StatsPage from './pages/StatsPage'
 import type { Character } from './types/character'
 import type { SortOption } from './types/sort'
 import type { Tag } from './types/tag'
+import { loadFavorites, saveFavorites, toggleFavorite } from './utils/favorites'
 import './App.css'
 
 function App() {
-  // The loaded characters live here because later the stats page needs them too
+  // The loaded characters live here because the list and the stats page both use them
   const [characters, setCharacters] = useState<Character[]>([])
   const [selectedTag, setSelectedTag] = useState<Tag | null>(null)
   const [page, setPage] = useState(1)
@@ -23,6 +24,9 @@ function App() {
   const [searchText, setSearchText] = useState('')
   // Same reason as the search: it stays after visiting a character
   const [sortBy, setSortBy] = useState<SortOption>('default')
+  // The details page changes them and the favorites page reads them.
+  // The function form reads localStorage only once, on the first render.
+  const [favoriteIds, setFavoriteIds] = useState<number[]>(() => loadFavorites())
 
   // Runs on start, when the tag changes, and when "load more" moves to the next page
   useEffect(() => {
@@ -63,6 +67,13 @@ function App() {
     setIsLoading(true)
   }
 
+  // Saved right here with the new list, so localStorage always matches the state
+  function handleToggleFavorite(id: number) {
+    const nextIds = toggleFavorite(favoriteIds, id)
+    setFavoriteIds(nextIds)
+    saveFavorites(nextIds)
+  }
+
   function handleLoadMore() {
     setPage((previous) => previous + 1)
     setIsLoading(true)
@@ -91,14 +102,17 @@ function App() {
               />
             }
           />
-          <Route path="/characters/:id" element={<CharacterDetailsPage />} />
+          <Route
+            path="/characters/:id"
+            element={<CharacterDetailsPage favoriteIds={favoriteIds} onToggleFavorite={handleToggleFavorite} />}
+          />
           <Route
             path="/stats"
             element={
               <StatsPage characters={characters} selectedTag={selectedTag} isLoading={isLoading} error={error} />
             }
           />
-          <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/favorites" element={<FavoritesPage favoriteIds={favoriteIds} />} />
         </Routes>
       </main>
     </>
