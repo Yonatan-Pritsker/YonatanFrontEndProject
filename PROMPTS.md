@@ -220,3 +220,7 @@
 > to documents on the prompts md file what you asked and my answers:
 > Tie-break when two characters share the same last episode → by id, lower first.
 > Where the sort choice lives → in App, like search.
+
+**19:26 · claude**
+
+> now next task

@@ -92,7 +92,12 @@ function App() {
             }
           />
           <Route path="/characters/:id" element={<CharacterDetailsPage />} />
-          <Route path="/stats" element={<StatsPage />} />
+          <Route
+            path="/stats"
+            element={
+              <StatsPage characters={characters} selectedTag={selectedTag} isLoading={isLoading} error={error} />
+            }
+          />
           <Route path="/favorites" element={<FavoritesPage />} />
         </Routes>
       </main>
