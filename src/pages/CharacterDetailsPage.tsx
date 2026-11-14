@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { fetchCharacter } from '../api/characters'
+import CloneBadge from '../components/CloneBadge'
 import StatusMessage from '../components/StatusMessage'
+import TagBadges from '../components/TagBadges'
 import type { Character } from '../types/character'
+import { getTags, isClone } from '../utils/tags'
 
 function CharacterDetailsPage() {
   const { id } = useParams()
@@ -53,6 +56,8 @@ function CharacterDetailsPage() {
   return (
     <section>
       <h1>{character.name}</h1>
+      <TagBadges tags={getTags(character.name)} />
+      {isClone(character) && <CloneBadge />}
       <img src={character.image} alt={character.name} width={300} height={300} />
       <ul>
         <li>Status: {character.status}</li>

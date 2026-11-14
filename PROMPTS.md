@@ -178,3 +178,7 @@
 **18:19 · claude**
 
 > the cards are still in one long column, 20 is a lot of scrolling. add minimal css so they sit in a row and wrap to the next line. just that, the real styling is still task 11
+
+**18:27 · claude**
+
+> pushed, do task 4

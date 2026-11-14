@@ -15,3 +15,21 @@
 .character-card {
   width: 150px;
 }
+
+/* Tags in one line with a border, so they read as badges and not as plain text */
+.tag-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  list-style: none;
+  padding: 0;
+  margin: 0.25rem 0;
+}
+
+.tag,
+.clone-badge {
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 0 0.3rem;
+  font-size: 0.8rem;
+}
