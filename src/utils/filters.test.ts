@@ -1,22 +1,9 @@
 import { describe, expect, it } from 'vitest'
+import { makeCharacter } from '../test/makeCharacter'
 import type { Character } from '../types/character'
 import { filterByName, filterByTag } from './filters'
 
-// filterByTag only looks at the name, so the other fields can be anything
-function makeCharacter(id: number, name: string): Character {
-  return {
-    id,
-    name,
-    status: 'Alive',
-    species: 'Human',
-    type: '',
-    gender: 'Male',
-    origin: { name: 'Earth', url: '' },
-    location: { name: 'Earth', url: '' },
-    image: '',
-    episode: [],
-  }
-}
+// Both filters only look at the name, so the other fields can be anything
 
 const characters = [
   makeCharacter(1, 'Rick Sanchez'),

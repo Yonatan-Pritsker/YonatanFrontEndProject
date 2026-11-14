@@ -1,10 +1,13 @@
 import CharacterList from '../components/CharacterList'
 import LoadMoreButton from '../components/LoadMoreButton'
 import SearchBox from '../components/SearchBox'
+import SortControl from '../components/SortControl'
 import StatusMessage from '../components/StatusMessage'
 import TagFilter from '../components/TagFilter'
 import type { Character } from '../types/character'
+import type { SortOption } from '../types/sort'
 import type { Tag } from '../types/tag'
+import { sortByLastSeen } from '../utils/episodes'
 import { filterByName, filterByTag } from '../utils/filters'
 
 type CharacterListPageProps = {
@@ -14,9 +17,11 @@ type CharacterListPageProps = {
   error: string | null
   hasMore: boolean
   searchText: string
+  sortBy: SortOption
   onTagChange: (tag: Tag | null) => void
   onLoadMore: () => void
   onSearchChange: (text: string) => void
+  onSortChange: (sortBy: SortOption) => void
 }
 
 function CharacterListPage({
@@ -26,12 +31,15 @@ function CharacterListPage({
   error,
   hasMore,
   searchText,
+  sortBy,
   onTagChange,
   onLoadMore,
   onSearchChange,
+  onSortChange,
 }: CharacterListPageProps) {
-  // Search only changes what's shown, not what's loaded: the API isn't called for it
-  const visibleCharacters = filterByName(filterByTag(characters, selectedTag), searchText)
+  // Search and sort only change what's shown, not what's loaded: the API isn't called for them
+  const filteredCharacters = filterByName(filterByTag(characters, selectedTag), searchText)
+  const visibleCharacters = sortBy === 'last-seen' ? sortByLastSeen(filteredCharacters) : filteredCharacters
   const isSearching = searchText.trim() !== ''
   const showEmptyMessage = !isLoading && !error && visibleCharacters.length === 0
 
@@ -40,6 +48,7 @@ function CharacterListPage({
       <h1>Rick and Morty characters</h1>
       <TagFilter selectedTag={selectedTag} onTagChange={onTagChange} />
       <SearchBox value={searchText} onChange={onSearchChange} />
+      <SortControl sortBy={sortBy} onSortChange={onSortChange} />
 
       {/* The list stays on screen while "load more" brings the next page */}
       {visibleCharacters.length > 0 && <CharacterList characters={visibleCharacters} />}

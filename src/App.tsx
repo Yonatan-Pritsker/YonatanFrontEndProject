@@ -7,6 +7,7 @@ import CharacterListPage from './pages/CharacterListPage'
 import FavoritesPage from './pages/FavoritesPage'
 import StatsPage from './pages/StatsPage'
 import type { Character } from './types/character'
+import type { SortOption } from './types/sort'
 import type { Tag } from './types/tag'
 import './App.css'
 
@@ -20,6 +21,8 @@ function App() {
   const [error, setError] = useState<string | null>(null)
   // Here and not in the list page, so the search is still there after visiting a character
   const [searchText, setSearchText] = useState('')
+  // Same reason as the search: it stays after visiting a character
+  const [sortBy, setSortBy] = useState<SortOption>('default')
 
   // Runs on start, when the tag changes, and when "load more" moves to the next page
   useEffect(() => {
@@ -80,9 +83,11 @@ function App() {
                 error={error}
                 hasMore={hasMore}
                 searchText={searchText}
+                sortBy={sortBy}
                 onTagChange={handleTagChange}
                 onLoadMore={handleLoadMore}
                 onSearchChange={setSearchText}
+                onSortChange={setSortBy}
               />
             }
           />

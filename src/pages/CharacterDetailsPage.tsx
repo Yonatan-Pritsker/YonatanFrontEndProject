@@ -5,6 +5,7 @@ import CloneBadge from '../components/CloneBadge'
 import StatusMessage from '../components/StatusMessage'
 import TagBadges from '../components/TagBadges'
 import type { Character } from '../types/character'
+import { getLastEpisode } from '../utils/episodes'
 import { getTags, isClone } from '../utils/tags'
 
 function CharacterDetailsPage() {
@@ -66,6 +67,7 @@ function CharacterDetailsPage() {
         <li>Origin: {character.origin.name}</li>
         <li>Last known location: {character.location.name}</li>
         <li>Episodes: {character.episode.length}</li>
+        <li>Last seen in episode: {getLastEpisode(character)}</li>
       </ul>
     </section>
   )

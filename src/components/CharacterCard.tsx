@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import type { Character } from '../types/character'
+import { getLastEpisode } from '../utils/episodes'
 import { getTags, isClone } from '../utils/tags'
 import CloneBadge from './CloneBadge'
 import TagBadges from './TagBadges'
@@ -17,6 +18,8 @@ function CharacterCard({ character }: CharacterCardProps) {
       </Link>
       <TagBadges tags={getTags(character.name)} />
       {isClone(character) && <CloneBadge />}
+      {/* So the "Last seen" sort can be checked by eye */}
+      <p className="last-seen">Last seen: ep. {getLastEpisode(character)}</p>
     </article>
   )
 }

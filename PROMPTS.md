@@ -206,3 +206,17 @@
 > <ide_opened_file>The user opened the file c:\Users\User\LocalClaudeProjects\LocalOnoCourses\OnoFrontEnd\final-project\docs\architecture.md in the IDE. This may or may not be related to the current task.</ide_opened_file>
 > checked: smith, zzz, clearing and rick+evil all work. 
 > regarding your notice, yes id like to move the search text up to App so it stays
+
+**19:07 · claude**
+
+> looks good, commited, task 8
+
+**19:14 · claude**
+
+> make sure to add what you asked and my choices at the end of your reply
+
+**19:22 · claude**
+
+> to documents on the prompts md file what you asked and my answers:
+> Tie-break when two characters share the same last episode → by id, lower first.
+> Where the sort choice lives → in App, like search.

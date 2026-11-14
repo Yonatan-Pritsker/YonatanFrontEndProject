@@ -27,7 +27,8 @@
 }
 
 /* The picked filter button */
-.tag-filter button[aria-pressed='true'] {
+.tag-filter button[aria-pressed='true'],
+.sort-control button[aria-pressed='true'] {
   font-weight: bold;
   text-decoration: underline;
 }
