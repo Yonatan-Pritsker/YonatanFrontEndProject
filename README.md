@@ -1,75 +1,42 @@
-# React + TypeScript + Vite
+# מאגר הדמויות של ריק ומורטי
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+אפליקציה לעבור על הדמויות של ריק ומורטי. יש בסדרה המון גרסאות של אותן דמויות, אז כל דמות מקבלת תגית לפי השם (Rick, Morty, Summer, Beth, Jerry, או "Goofy one-offs" לכל השאר), ושיבוטים מקבלים תג Clone.
 
-Currently, two official plugins are available:
+- **רשימה** (`/`) - סינון לפי תגית, חיפוש לפי שם, מיון לפי הפרק האחרון שבו הדמות הופיעה, ו-"Load more" לעוד 20.
+- **פרטי דמות** (`/characters/:id`) - תמונה, סטטוס, זן, כוכב מוצא, מספר פרקים, פרק אחרון, והוספה למועדפים.
+- **סטטיסטיקות** (`/stats`) - ספירה לפי תגית ולפי סטטוס, ומי הופיעו בהכי הרבה פרקים, על הדמויות שנטענו.
+- **מועדפים** (`/favorites`) - נשמרים ב-`localStorage`, נשארים גם אחרי רענון.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## הרצה
 
-## React Compiler
+צריך Node.js.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+ואז לפתוח את הכתובת שמופיעה בטרמינל (בדרך כלל http://localhost:5173).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## בדיקות
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+הבדיקות הן Vitest, על הלוגיקה שב-`src/utils/` (תגיות, סינון, מיון, סטטיסטיקות, מועדפים).
 
+```bash
+npm test          # מריץ פעם אחת
+npm run test:ui   # פותח את Vitest UI בדפדפן
 ```
+
+## API
+
+[The Rick and Morty API](https://rickandmortyapi.com/documentation) - חינמי, בלי מפתח. משתמשים ב:
+- `/character?page=&name=` - הרשימה והסינון לפי תגית
+- `/character/:id` - עמוד הפרטים
+- `/character/1,2,3` - עמוד המועדפים, בבקשה אחת
+
+## מסמכים
+
+- [PRD.md](PRD.md) - מה בונים ולמה, וכללי התגיות
+- [tasks.md](tasks.md) - המשימות לפי הסדר
+- [docs/architecture.md](docs/architecture.md) - מבנה הקוד ואיפה ה-state
+- [PROMPTS.md](PROMPTS.md) - יומן הפרומפטים, נכתב אוטומטית על ידי hook (`.claude/settings.json` + `scripts/log-prompt.mjs`)
