@@ -18,6 +18,8 @@ function App() {
   const [hasMore, setHasMore] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  // Here and not in the list page, so the search is still there after visiting a character
+  const [searchText, setSearchText] = useState('')
 
   // Runs on start, when the tag changes, and when "load more" moves to the next page
   useEffect(() => {
@@ -77,8 +79,10 @@ function App() {
                 isLoading={isLoading}
                 error={error}
                 hasMore={hasMore}
+                searchText={searchText}
                 onTagChange={handleTagChange}
                 onLoadMore={handleLoadMore}
+                onSearchChange={setSearchText}
               />
             }
           />

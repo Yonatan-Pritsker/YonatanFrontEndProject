@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Character } from '../types/character'
-import { filterByTag } from './filters'
+import { filterByName, filterByTag } from './filters'
 
 // filterByTag only looks at the name, so the other fields can be anything
 function makeCharacter(id: number, name: string): Character {
@@ -40,5 +40,25 @@ describe('filterByTag', () => {
   it('keeps Morty Rick under both rick and morty', () => {
     expect(names(filterByTag(characters, 'rick'))).toEqual(['Rick Sanchez', 'Morty Rick'])
     expect(names(filterByTag(characters, 'morty'))).toEqual(['Morty Smith', 'Morty Rick'])
+  })
+})
+
+describe('filterByName', () => {
+  it('keeps everyone when the search is empty or only spaces', () => {
+    expect(filterByName(characters, '')).toEqual(characters)
+    expect(filterByName(characters, '   ')).toEqual(characters)
+  })
+
+  it('finds the text anywhere in the name, ignoring case', () => {
+    expect(names(filterByName(characters, 'SMITH'))).toEqual(['Morty Smith'])
+    expect(names(filterByName(characters, 'morty'))).toEqual(['Morty Smith', 'Morty Rick'])
+  })
+
+  it('ignores spaces around the text', () => {
+    expect(names(filterByName(characters, '  einstein '))).toEqual(['Albert Einstein'])
+  })
+
+  it('returns an empty list when nothing matches', () => {
+    expect(filterByName(characters, 'zzz')).toEqual([])
   })
 })

@@ -11,3 +11,13 @@ export function filterByTag(characters: Character[], tag: Tag | null): Character
   }
   return characters.filter((character) => getTags(character.name).includes(tag))
 }
+
+// The search box: names that contain the text, ignoring case and spaces around it.
+// Empty text means no search, so everyone stays.
+export function filterByName(characters: Character[], searchText: string): Character[] {
+  const query = searchText.trim().toLowerCase()
+  if (query === '') {
+    return characters
+  }
+  return characters.filter((character) => character.name.toLowerCase().includes(query))
+}
