@@ -4,6 +4,9 @@ import type { Tag } from '../types/tag'
 // The tags that come from the name. "other" isn't here, it's what's left when none of these match.
 const NAME_TAGS: Tag[] = ['rick', 'morty', 'summer', 'beth', 'jerry']
 
+// All tags in the order the filter buttons show them
+export const ALL_TAGS: Tag[] = [...NAME_TAGS, 'other']
+
 // Types the API uses for copies of a character. Goddess is here for Goddess Beth,
 // who is a Mytholog of Beth but has type "Goddess".
 const CLONE_TYPES = ['Clone', 'Mytholog', 'Goddess']

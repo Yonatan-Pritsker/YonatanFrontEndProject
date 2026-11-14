@@ -26,6 +26,12 @@
   margin: 0.25rem 0;
 }
 
+/* The picked filter button */
+.tag-filter button[aria-pressed='true'] {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 .tag,
 .clone-badge {
   border: 1px solid;

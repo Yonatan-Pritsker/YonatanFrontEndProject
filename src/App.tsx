@@ -7,22 +7,33 @@ import CharacterListPage from './pages/CharacterListPage'
 import FavoritesPage from './pages/FavoritesPage'
 import StatsPage from './pages/StatsPage'
 import type { Character } from './types/character'
+import type { Tag } from './types/tag'
 import './App.css'
 
 function App() {
   // The loaded characters live here because later the stats page needs them too
   const [characters, setCharacters] = useState<Character[]>([])
+  const [selectedTag, setSelectedTag] = useState<Tag | null>(null)
+  const [page, setPage] = useState(1)
+  const [hasMore, setHasMore] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
+  // Runs on start, when the tag changes, and when "load more" moves to the next page
   useEffect(() => {
-    // If the effect is cleaned up before the answer arrives (StrictMode runs it twice in dev),
-    // ignore that answer so it doesn't overwrite the newer one
+    // If the effect is cleaned up before the answer arrives (StrictMode in dev, or the tag changed
+    // while a page was still loading), ignore that answer so it doesn't mix into the new list
     let ignore = false
 
-    fetchCharacters(1)
-      .then((page) => {
-        if (!ignore) setCharacters(page.results)
+    // "other" can't be asked from the API, so it loads everyone and the list page filters
+    const name = selectedTag === null || selectedTag === 'other' ? undefined : selectedTag
+
+    fetchCharacters(page, name)
+      .then((result) => {
+        if (ignore) return
+        // Page 1 replaces the list, later pages are added to the end
+        setCharacters((previous) => (page === 1 ? result.results : [...previous, ...result.results]))
+        setHasMore(result.info.next !== null)
       })
       .catch(() => {
         if (!ignore) setError('Could not load characters. Try again later.')
@@ -34,7 +45,23 @@ function App() {
     return () => {
       ignore = true
     }
-  }, [])
+  }, [selectedTag, page])
+
+  // The reset happens here and not inside the effect: the effect only fetches
+  function handleTagChange(tag: Tag | null) {
+    if (tag === selectedTag) return
+    setSelectedTag(tag)
+    setPage(1)
+    setCharacters([])
+    setHasMore(false)
+    setError(null)
+    setIsLoading(true)
+  }
+
+  function handleLoadMore() {
+    setPage((previous) => previous + 1)
+    setIsLoading(true)
+  }
 
   return (
     <>
@@ -43,7 +70,17 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<CharacterListPage characters={characters} isLoading={isLoading} error={error} />}
+            element={
+              <CharacterListPage
+                characters={characters}
+                selectedTag={selectedTag}
+                isLoading={isLoading}
+                error={error}
+                hasMore={hasMore}
+                onTagChange={handleTagChange}
+                onLoadMore={handleLoadMore}
+              />
+            }
           />
           <Route path="/characters/:id" element={<CharacterDetailsPage />} />
           <Route path="/stats" element={<StatsPage />} />

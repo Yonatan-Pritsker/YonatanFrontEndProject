@@ -36,7 +36,7 @@ Done when: `npm test` מראה לפחות 5 בדיקות עוברות; `npm run 
 
 ## 6. סינון לפי תגית ו-load more
 
-`TagFilter`. בחירת תגית: `App` מביא `?name=<tag>` ומחליף את הרשימה. `LoadMoreButton` מביא את העמוד הבא לפי `info.next`. `other` מביא בלי שם ומסנן מקומית (ב-`filters.ts`, עם בדיקה).
+`TagFilter`. בחירת תגית: `App` מביא `?name=<tag>` ומחליף את הרשימה. `LoadMoreButton` מעלה את מספר העמוד, וה-`useEffect` מביא אותו. `info.next` אומר אם יש עוד עמוד. `other` מביא בלי שם ומסנן מקומית (ב-`filters.ts`, עם בדיקה).
 
 Done when: בחירת Rick מציגה 20 כרטיסים ולכולם תגית rick; "load more" מעלה ל-40; אחרי 5 לחיצות יש 107 כרטיסים והכפתור נעלם; ב-other אף כרטיס לא מראה תגית של המשפחה; `npm test` עובר.
 

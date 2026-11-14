@@ -2,8 +2,14 @@ import type { Character, CharactersPage } from '../types/character'
 
 const BASE_URL = 'https://rickandmortyapi.com/api/character'
 
-export async function fetchCharacters(page: number): Promise<CharactersPage> {
-  const response = await fetch(`${BASE_URL}?page=${page}`)
+// One page of 20 characters. With a name, only characters whose name contains it.
+export async function fetchCharacters(page: number, name?: string): Promise<CharactersPage> {
+  const params = new URLSearchParams({ page: String(page) })
+  if (name) {
+    params.set('name', name)
+  }
+
+  const response = await fetch(`${BASE_URL}?${params}`)
   if (!response.ok) {
     throw new Error(`Request failed with status ${response.status}`)
   }
