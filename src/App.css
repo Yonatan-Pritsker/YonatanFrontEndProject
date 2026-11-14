@@ -3,3 +3,15 @@
   font-weight: bold;
   text-decoration: underline;
 }
+
+/* Cards side by side, wrapping to the next line */
+.character-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Same width as the image, so long names wrap instead of widening the card */
+.character-card {
+  width: 150px;
+}
