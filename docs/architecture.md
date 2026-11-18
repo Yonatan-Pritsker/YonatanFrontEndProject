@@ -45,7 +45,7 @@ src/
 `NavBar`, `CharacterCard`, `CharacterList`, `TagFilter`, `SearchBox`, `SortControl`, `TagBadges`, `CloneBadge`, `LoadMoreButton`, `FavoriteButton`, `StatusMessage` (טוען / שגיאה).
 
 ### pages/
-`CharacterListPage`, `CharacterDetailsPage`, `StatsPage`, `FavoritesPage`.
+`CharacterListPage`, `CharacterDetailsPage`, `StatsPage`, `FavoritesPage`, `NotFoundPage` (ה-route עם `path="*"`, לכל כתובת שלא מתאימה לאף route אחר).
 
 ## איפה ה-state
 

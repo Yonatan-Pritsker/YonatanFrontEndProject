@@ -81,3 +81,9 @@ Done when: `npm run build`, `npm test` ו-`npm run lint` עוברים בלי ש�
 מחליף את הכלל ממשימה 9 ("רק מה שנטען"). `utils/batches.ts` (חלוקה לקבוצות), `api/allCharacters.ts` (עמוד 1, ואז קבוצות של 5 עם 2 שניות הפסקה - עם שנייה אחת ה-API החזיר 429), `utils/allCharactersCache.ts` (`sessionStorage`). `StatsPage` טוען בעצמו ומתעלם מהתגית של הרשימה; `App` כבר לא מעביר לו כלום. בדיקות לשלושתם, ללולאה עם API מזויף.
 
 Done when: בלשונית חדשה, `/stats` מציג "Loaded 20 / 826" והמספר עולה כל 2 שניות בערך, וב-Network יש בקשה ל-`page=1` לבד ואז קבוצות של 5, בלי 429; בסוף כתוב "Stats for all 826 characters" עם Rick 107, Morty 68, Summer 12, Beth 18, Jerry 23, Goofy one-offs 599 ו-Alive 439, Dead 287, Unknown 100; מעבר לרשימה וחזרה מציג מיד, בלי בקשות חדשות ב-Network, וב-Application ← Session Storage יש `allCharacters`; בחירת Rick ברשימה לא משנה את הסטטיסטיקות; חסימת הדומיין באמצע הטעינה מציגה שגיאה, "Loaded X / 826 so far" ו-Try again, ואחרי ביטול החסימה Try again ממשיך מ-X ומגיע ל-826; יציאה מהעמוד באמצע עוצרת את הבקשות, וחזרה מתחילה מ-"Loaded 20"; `npm test` עובר.
+
+## 14. עמוד 404
+
+`NotFoundPage` עם קישור חזרה לרשימה, ו-`<Route path="*">` אחרון ב-`App`. לא נוגעים ב-"לא נמצא" של עמוד הפרטים.
+
+Done when: `/whatever` ו-`/characters/5/extra` מציגים "Page not found" עם התפריט, ובקונסול אין יותר "No routes matched"; הקישור מחזיר לרשימה; `/`, `/characters/1`, `/stats` ו-`/favorites` עובדים כמו קודם; `/characters/999` עדיין מציג "Character not found"; `npm run build` ו-`npm run lint` עוברים.

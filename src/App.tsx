@@ -5,6 +5,7 @@ import NavBar from './components/NavBar'
 import CharacterDetailsPage from './pages/CharacterDetailsPage'
 import CharacterListPage from './pages/CharacterListPage'
 import FavoritesPage from './pages/FavoritesPage'
+import NotFoundPage from './pages/NotFoundPage'
 import StatsPage from './pages/StatsPage'
 import type { Character } from './types/character'
 import type { SortOption } from './types/sort'
@@ -110,6 +111,8 @@ function App() {
           {/* The stats page loads all the characters itself, it doesn't use the list's state */}
           <Route path="/stats" element={<StatsPage />} />
           <Route path="/favorites" element={<FavoritesPage favoriteIds={favoriteIds} />} />
+          {/* "*" is the least specific path, so it only matches when no other route does */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
     </>

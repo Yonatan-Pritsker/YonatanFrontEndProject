@@ -264,3 +264,13 @@
 **22:56 · claude**
 
 > i changed my mind, well keep it at sessionStorage so the app doesn't leave about 1MB on the user's disk forever, and the data can never go stale.
+
+## 2026-11-18
+
+**10:12 · claude**
+
+> I'm thinking about adding a 404 page before I submit. Right now if I go to a URL that doesn't exist, like /whatever, I just get the nav bar with nothing under it, and the console shows a "No routes matched" warning. The brief lists a 404 page as a bonus. Is it worth adding at this point, or is it risky to touch the routing this close to the deadline? Don't change anything yet, just tell me what it would involve and what you think.
+
+**10:15 · claude**
+
+> task 13 is commited, go ahead
